@@ -3,9 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/JavaPro.iml" filepath="$PROJECT_DIR$/JavaPro.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Lessons/Lesson_01/Lesson_01.iml" filepath="$PROJECT_DIR$/Lessons/Lesson_01/Lesson_01.iml" />
       <module fileurl="file://$PROJECT_DIR$/homeWorks/homeWork_01/homeWork_01.iml" filepath="$PROJECT_DIR$/homeWorks/homeWork_01/homeWork_01.iml" />
+      <module fileurl="file://$PROJECT_DIR$/homeWorks/homeWork_02/homeWork_02.iml" filepath="$PROJECT_DIR$/homeWorks/homeWork_02/homeWork_02.iml" />
       <module fileurl="file://$PROJECT_DIR$/konsultations/konsultation_01/konsultation_01.iml" filepath="$PROJECT_DIR$/konsultations/konsultation_01/konsultation_01.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lessons/lesson_01/lesson_01.iml" filepath="$PROJECT_DIR$/lessons/lesson_01/lesson_01.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lessons/lesson_02/lesson_02.iml" filepath="$PROJECT_DIR$/lessons/lesson_02/lesson_02.iml" />
     </modules>
   </component>
 </project>

@@ -10,7 +10,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../libs/commons-logging-1.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../libs/spring-beans-6.0.11.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -19,7 +19,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../libs/spring-aop-6.0.11.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../libs/commons-logging-1.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -28,7 +28,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../libs/spring-beans-6.0.11.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../libs/spring-aop-6.0.11.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -37,7 +37,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../libs/spring-context-6.0.11.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../libs/spring-context-6.0.11.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -46,7 +46,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../libs/spring-core-6.0.11.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../libs/spring-core-6.0.11.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -55,7 +55,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../libs/spring-expression-6.0.11.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../libs/spring-expression-6.0.11.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
