@@ -1,9 +1,10 @@
-package app.config;
+package app.configuration;
 
 
 import app.starcraft.Commandor;
 import app.starcraft.Player;
 import app.starcraft.buldings.protoss.Nexus;
+import app.starcraft.buldings.protoss.Stargate;
 import app.starcraft.buldings.terrans.Barracks;
 import app.starcraft.units.protoss.nexus.Probe;
 import app.starcraft.units.protoss.stargate.Oracle;
@@ -15,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 
-public class AppConfig {
+public class AppConfiguration {
 
 
     //Spring context
@@ -55,6 +56,11 @@ public class AppConfig {
     @Bean
     public Probe getProbe(){
         return new Probe();
+    }
+
+    @Bean
+    public Stargate getStargate(){
+        return new Stargate();
     }
 
 

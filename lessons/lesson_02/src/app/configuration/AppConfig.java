@@ -1,4 +1,4 @@
-package app.config;
+package app.configuration;
 
 import app.staff.administration.Director;
 import app.staff.administration.ProductionChef;
