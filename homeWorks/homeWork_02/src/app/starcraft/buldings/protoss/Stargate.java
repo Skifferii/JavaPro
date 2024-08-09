@@ -14,4 +14,20 @@ public class Stargate {
         oracle.craft();
         phoenix.craft();
     }
+
+    public Oracle getOracle() {
+        return oracle;
+    }
+
+    public void setOracle(Oracle oracle) {
+        this.oracle = oracle;
+    }
+
+    public Phoenix getPhoenix() {
+        return phoenix;
+    }
+
+    public void setPhoenix(Phoenix phoenix) {
+        this.phoenix = phoenix;
+    }
 }
