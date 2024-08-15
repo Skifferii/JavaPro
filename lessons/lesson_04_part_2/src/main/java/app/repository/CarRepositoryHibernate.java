@@ -2,6 +2,7 @@ package app.repository;
 
 import app.model.Car;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 import org.hibernate.cfg.Configuration;
 
 import java.util.List;
@@ -18,21 +19,29 @@ public class CarRepositoryHibernate implements CarRepository {
 
     @Override
     public List<Car> getAll() {
+        //TODO HOMEWORK
         return List.of();
     }
 
     @Override
     public Car save(Car car) {
-        return null;
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        transaction.begin();
+        entityManager.persist(car);
+        transaction.commit();
+                return car;
+
     }
 
     @Override
     public Car findById(long id) {
-        return null;
+        return entityManager.find(Car.class, id);
     }
 
     @Override
     public Car update(Car car) {
+        //TODO HOMEWORK
         return null;
     }
 
