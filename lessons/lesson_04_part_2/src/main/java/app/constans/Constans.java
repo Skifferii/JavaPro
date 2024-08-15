@@ -7,10 +7,10 @@ public interface Constans {
 
     String DB_DRIVER_PATH = "org.postgresql.Driver";
 
-    String DB_ADDRESS = "jdbc:postgresql://localhost:5432/postgres";
+    String DB_ADDRESS = "jdbc:postgresql://localhost:5433";
     String DB_NAME = "g_44_cars";
     String DB_USER = "postgres";
-    String DB_PASSWORD = "post1234";
+    String DB_PASSWORD = "pos1234";
 
 
 }

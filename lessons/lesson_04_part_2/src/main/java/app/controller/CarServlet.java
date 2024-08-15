@@ -72,18 +72,29 @@ public class CarServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        // Данные автомобиля, отправленные клиентом в виде JSON
+        // считываются из тела запроса и преобразуются в Java-объект типа Car.
+                Car car =mapper.readValue(request.getReader(), Car.class);
+
+                Car result = repository.save(car);
+
+                // Zuruck to JSON
+        String json = mapper.writeValueAsString(result);
+
+        response.getWriter().write(json);
+
     }
 
 
     @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPut(req, resp);
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        super.doPut(request, response);
     }
 
     @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doDelete(req, resp);
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        super.doDelete(request, response);
     }
 }

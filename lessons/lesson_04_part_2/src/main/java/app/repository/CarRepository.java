@@ -5,7 +5,7 @@ import app.model.Car;
 import java.util.List;
 
 public interface CarRepository {
-    //CRUD  operation, Create, Read,Updete, delete
+    //CRUD  operation, Create, Read,Update, delete
     List<Car> getAll();
 
     Car save(Car car);
