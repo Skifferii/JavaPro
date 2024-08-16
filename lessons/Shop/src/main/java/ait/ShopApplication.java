@@ -1,4 +1,4 @@
-package ait.group44.shop;
+package ait;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
