@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
 
-    <changeSet id="create-table-roduct" author="AndriiDolzhenko">
+    <changeSet id="create-table-product" author="AndriiDolzhenko">
         <createTable tableName="product">
             <!--  //type="bigint"    GLEICH  LONG in JAVA  -->
             <column name="id" type="bigint" autoIncrement="true">
