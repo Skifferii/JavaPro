@@ -8,10 +8,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/customers")
 
+
+
+
 public class CustomerController {
 
     @PostMapping
-    public Customer saveProduct(@RequestBody Customer customer) {
+    public Customer saveCustomer(@RequestBody Customer customer) {
 
         //TODO ask to service
 
@@ -26,9 +29,9 @@ public class CustomerController {
     }
 
     @PutMapping("/{id}")
-    public Customer updateProduct( @PathVariable Long id, @RequestBody Customer product) {
+    public Customer updateCustomer( @PathVariable Long id, @RequestBody Customer customer) {
 
-        return product;
+        return customer;
     }
 
 
