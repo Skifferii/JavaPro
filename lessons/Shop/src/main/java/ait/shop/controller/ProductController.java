@@ -38,15 +38,14 @@ public class ProductController {
     public Product updateProduct(@PathVariable Long id, @RequestBody Product product) {
         return productService.updateProduct(id, product);
     }
+    @PutMapping("/restore/{id}")
+    public Product restoreByTitle(Long id) {
+        return productService.restoreByTitle(id);
+    }
 
     @DeleteMapping("/{id}")
     public Product remove(@PathVariable Long id) {
         return productService.remove(id);
-    }
-
-    @GetMapping
-    public List<Product> getAll() {
-        return productService.getAll();
     }
 
     @DeleteMapping("/{by-title}")
@@ -54,9 +53,9 @@ public class ProductController {
         return productService.removeByTitle(title);
     }
 
-    @PutMapping("/restore/{id}")
-    public Product restoreByTitle(Long id) {
-        return productService.restoreByTitle(id);
+    @GetMapping
+    public List<Product> getAll() {
+        return productService.getAll();
     }
 
     @GetMapping("/count")
