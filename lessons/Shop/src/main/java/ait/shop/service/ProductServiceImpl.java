@@ -46,6 +46,10 @@ public class ProductServiceImpl implements ProductService {
         return repository.save(product);
     }
 
+    @Override
+    public long getProductsCount() {
+        return repository.count();
+    }
 
     @Override
     public Product remove(Long id) {
@@ -62,11 +66,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product restoreByTitle(Long id) {
         return null;
-    }
-
-    @Override
-    public long getProductsCount() {
-        return 0;
     }
 
     @Override

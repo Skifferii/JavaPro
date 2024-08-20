@@ -18,6 +18,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer saveCustomer(Customer customer) {
+        customer.setActive(true);
         return repository.save(customer);
     }
 
@@ -36,15 +37,19 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer remove(Long id) {
-        return null;
+    public List<Customer> getAll() {
+        return repository.findAll().stream().filter(Customer ::isActive).toList();
     }
 
     @Override
-    public List<Customer> getAll() {
-        return List.of();
+    public long getCustomerCount() {
+        return repository.count();
     }
 
+    @Override
+    public Customer remove(Long id) {
+        return null;
+    }
     @Override
     public Customer removeByName(String title) {
         return null;
@@ -55,8 +60,5 @@ public class CustomerServiceImpl implements CustomerService {
         return null;
     }
 
-    @Override
-    public long getCustomerCount() {
-        return repository.count();
-    }
+
 }
