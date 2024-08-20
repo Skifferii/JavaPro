@@ -32,11 +32,12 @@ public class CustomerController {
         return customerService.updateCustomer(id, customer);
     }
 
+
+
     @DeleteMapping("/{id}")
-    public Customer remove(@PathVariable Long id) {
+    public Customer removeById(@PathVariable Long id) {
         return customerService.restoreById(id);
     }
-
 
     @GetMapping
     public List<Customer> getAll() {
@@ -47,7 +48,10 @@ public class CustomerController {
     public Customer removeByName(String title) {
         return customerService.removeByName(title);
     }
-
+    @PutMapping
+    public Customer removeByID(Long id) {
+        return customerService.removeByID(id);
+    }
     @PutMapping("/restore/{id}")
     public Customer restoreById(Long id) {
         return customerService.restoreById(id);
