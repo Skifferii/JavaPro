@@ -14,7 +14,7 @@ public interface CustomerService {
 
     public Customer updateCustomer(@PathVariable Long id, @RequestBody Customer customer);
 
-    public Customer remove(@PathVariable Long id);
+    public Customer removeByID(@PathVariable Long id);
 
     public List<Customer> getAll();
 

@@ -47,8 +47,12 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer remove(Long id) {
-        return null;
+    public Customer removeByID(Long id) {
+        Customer customer = repository.findById(id).orElse(null);
+        if (customer == null || !customer.isActive()) {
+            return null;
+        }else {repository.deleteById(id);};
+        return customer;
     }
     @Override
     public Customer removeByName(String title) {
