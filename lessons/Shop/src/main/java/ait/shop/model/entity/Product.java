@@ -1,18 +1,32 @@
 package ait.shop.model.entity;
 
+import jakarta.persistence.*;
+
 import java.math.BigDecimal;
 import java.util.Objects;
 
+@Entity
+@Table(name = "product")
 public class Product {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id; //null
+
+    @Column(name = "title")
     private String title; //null
+
+    @Column(name = "price")
     private BigDecimal price; //null
+
+    @Column
     private boolean active; //false
 
     @Override
     public String toString() {
         return String.format("Product: id - %d, title - %s, price - %s, active - %s",
-                 id, title, price, active ? "yes" : "no" );
+                id, title, price, active ? "yes" : "no");
     }
 
     public Product() {
