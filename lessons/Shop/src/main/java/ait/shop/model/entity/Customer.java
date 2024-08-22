@@ -3,6 +3,7 @@ package ait.shop.model.entity;
 import jakarta.persistence.*;
 
 import java.util.Objects;
+
 @Entity
 @Table(name = "customer")
 
@@ -18,11 +19,16 @@ public class Customer {
     @Column
     private boolean active;
 
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.PERSIST)
+
+    private Cart cart;
+
     @Override
     public String toString() {
         return String.format("Customer: id - %d, name - %s, active - %s",
-                id, name, active ? "yes" : "no" );
+                id, name, active ? "yes" : "no");
     }
+
     public Customer() {
     }
 

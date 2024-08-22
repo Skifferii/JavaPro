@@ -1,66 +1,95 @@
 package ait.shop.service;
 
+import ait.shop.model.dto.CustomerDTO;
 import ait.shop.model.entity.Customer;
-import ait.shop.model.entity.Product;
 import ait.shop.repository.repository.CustomerRepository;
-import ait.shop.repository.repository.ProductRepository;
 import ait.shop.service.interfaces.CustomerService;
+import ait.shop.service.mapping.CustomerMappingService;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 @Service
 public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository repository;
+    final private CustomerMappingService mapper;
 
-    public CustomerServiceImpl(CustomerRepository repository) {
+    public CustomerServiceImpl(CustomerRepository repository, CustomerMappingService mapper) {
         this.repository = repository;
+        this.mapper = mapper;
     }
 
     @Override
-    public Customer saveCustomer(Customer customer) {
-        customer.setActive(true);
-        return repository.save(customer);
+    public CustomerDTO saveCustomer(CustomerDTO customerDTO) {
+        Customer customer = mapper.mapDtoToEntity(customerDTO);
+        return mapper.mapEntityToDto(repository.save(customer));
     }
 
     @Override
-    public Customer getById(long id) {
-        Customer customer = repository.findById(id).orElse(null);
+
+    public CustomerDTO getById(long id) {
+       Customer customer = repository.findById(id).orElse(null);
         if (customer == null || !customer.isActive()) {
             return null;
         }
-        return customer;
+        return mapper.mapEntityToDto(customer);
     }
 
-    @Override
-    public Customer updateCustomer(Long id, Customer customer) {
-        return repository.save(customer);
-    }
+
 
     @Override
-    public List<Customer> getAll() {
-        return repository.findAll().stream().filter(Customer ::isActive).toList();
+    public   List<CustomerDTO> getAllActiveCustomers() {
+        return repository.findAll().stream().filter(Customer ::isActive).map(mapper::mapEntityToDto).toList();
     }
-
     @Override
-    public long getCustomerCount() {
+    public CustomerDTO updateCustomer(Long id, CustomerDTO customerDTO) {
+        return null;
+    }
+    @Override
+    public long getActiveCustomerCount() {
         return repository.count();
     }
 
     @Override
-    public Customer removeByID(Long id) {
-        Customer customer = repository.findById(id).orElse(null);
-        if (customer == null || !customer.isActive()) {
-            return null;
-        }else {repository.deleteById(id);};
-        return customer;
-    }
-    @Override
-    public Customer removeByName(String title) {
+    public BigDecimal getTotalCostOfCustomersProducts(long customerId) {
         return null;
     }
 
     @Override
-    public Customer restoreById(Long id) {
+    public BigDecimal getAverageCostOfCustomersProducts(long customerId) {
+        return null;
+    }
+
+    @Override
+    public void addProductToCustomersCart(long customerId, long productId) {
+
+    }
+
+    @Override
+    public void removeProductToCustomersCart(long customerId, long productId) {
+
+    }
+
+    @Override
+    public void clearCustomersCart(long customerId) {
+
+    }
+
+    @Override
+    public CustomerDTO deleteById(Long id) {
+        Customer customer = repository.findById(id).orElse(null);
+        if (customer == null || !customer.isActive()) {
+            return null;
+        }else {repository.deleteById(id);};
+        return null;
+    }
+    @Override
+    public void  deleteByName(String title) {
+
+    }
+
+    @Override
+    public CustomerDTO restoreById(Long id) {
         return null;
     }
 

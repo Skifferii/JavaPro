@@ -1,6 +1,6 @@
 package ait.shop.service.interfaces;
 
-import ait.shop.model.entity.Customer;
+import ait.shop.model.dto.CustomerDTO;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -8,20 +8,28 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public interface CustomerService {
-    public Customer saveCustomer(@RequestBody Customer customer);
+    CustomerDTO saveCustomer(@RequestBody CustomerDTO customer);
 
-    public Customer getById(@PathVariable long id);
+    List<CustomerDTO> getAllActiveCustomers();
 
-    public Customer updateCustomer(@PathVariable Long id, @RequestBody Customer customer);
+    CustomerDTO getById(@PathVariable long id);
 
-    public Customer removeByID(@PathVariable Long id);
+    CustomerDTO updateCustomer(@PathVariable Long id, @RequestBody CustomerDTO customer);
 
-    public List<Customer> getAll();
+    CustomerDTO deleteById(@PathVariable Long id);
 
-    Customer removeByName(String title);
+    void deleteByName(String title);
 
-    Customer restoreById(Long id);
+    CustomerDTO restoreById(Long id);
 
-    long getCustomerCount();
+    long getActiveCustomerCount();
+
+    BigDecimal getTotalCostOfCustomersProducts(long customerId);
+
+    BigDecimal getAverageCostOfCustomersProducts(long customerId);
+    void addProductToCustomersCart(long customerId, long productId );
+    void removeProductToCustomersCart(long customerId, long productId );
+    void clearCustomersCart(long customerId);
+
 
 }

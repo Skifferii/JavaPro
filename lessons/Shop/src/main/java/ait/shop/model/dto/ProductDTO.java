@@ -1,4 +1,4 @@
-package ait.shop.model.entity;
+package ait.shop.model.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
@@ -6,37 +6,30 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-@Entity
-@Table(name = "product")
-@Schema(description = "Class thet describes Product")
-public class Product {
+@Schema(description = "DTO for  Product")
+
+public class ProductDTO {
     @Schema(description = "Product unique identifier", example = "777", accessMode = Schema.AccessMode.READ_ONLY)
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id; //null
+       private Long id; //null
 
     @Schema(description = "Product title", example = "marakuya")
-    @Column(name = "title")
+
     private String title; //null
 
     @Schema(description = "Product price", example = "25.45")
-    @Column(name = "price")
+
     private BigDecimal price; //null
 
-    @Schema(description = "Product active status", example = "true", accessMode = Schema.AccessMode.READ_ONLY)
-    @Column
-    private boolean active; //false
+
 
     @Override
     public String toString() {
-        return String.format("Product: id - %d, title - %s, price - %s, active - %s",
-                id, title, price, active ? "yes" : "no");
+        return String.format("Product: id - %d, title - %s, price - %s",
+                id, title, price);
     }
 
-    public Product() {
+    public ProductDTO() {
     }
-
     public Long getId() {
         return id;
     }
@@ -47,10 +40,6 @@ public class Product {
 
     public BigDecimal getPrice() {
         return price;
-    }
-
-    public boolean isActive() {
-        return active;
     }
 
     public void setId(Long id) {
@@ -65,17 +54,13 @@ public class Product {
         this.price = price;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Product product = (Product) o;
-        return active == product.active && Objects.equals(id, product.id) && Objects.equals(title, product.title) && Objects.equals(price, product.price);
+        ProductDTO that = (ProductDTO) o;
+        return Objects.equals(id, that.id) && Objects.equals(title, that.title) && Objects.equals(price, that.price);
     }
 
     @Override
@@ -83,7 +68,6 @@ public class Product {
         int result = Objects.hashCode(id);
         result = 31 * result + Objects.hashCode(title);
         result = 31 * result + Objects.hashCode(price);
-        result = 31 * result + Boolean.hashCode(active);
         return result;
     }
 }

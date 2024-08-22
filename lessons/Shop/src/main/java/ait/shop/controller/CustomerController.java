@@ -1,14 +1,15 @@
 package ait.shop.controller;
 
-import ait.shop.model.entity.Customer;
+import ait.shop.model.dto.CustomerDTO;
 import ait.shop.service.interfaces.CustomerService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/customers")
-
+@Tag(name = "Customer controller", description = "controller for operations with customer")
 
 public class CustomerController {
     private final CustomerService customerService;
@@ -18,43 +19,68 @@ public class CustomerController {
     }
 
     @PostMapping
-    public Customer saveCustomer(@RequestBody Customer customer) {
-        return customerService.saveCustomer(customer);
+    public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO) {
+        return customerService.saveCustomer(customerDTO);
     }
 
     @PutMapping("/{id}")
-    public Customer updateCustomer(@PathVariable Long id, @RequestBody Customer customer) {
-        return customerService.updateCustomer(id, customer);
+    public CustomerDTO updateCustomer(@PathVariable Long id, @RequestBody CustomerDTO customerDTO) {
+        return customerService.updateCustomer(id, customerDTO);
     }
 
     @PutMapping("/restore/{id}")
-    public Customer restoreById(Long id) {
+    public CustomerDTO restoreById(Long id) {
         return customerService.restoreById(id);
     }
 
     @GetMapping("/{id}")
-    public Customer getById(@PathVariable long id) {
+    public CustomerDTO getById(@PathVariable long id) {
         return customerService.getById(id);
     }
 
     @GetMapping
-    public List<Customer> getAll() {
-        return customerService.getAll();
+    public List<CustomerDTO> getAllActiveCustomers() {
+        return customerService.getAllActiveCustomers();
     }
 
     @GetMapping("/count")
-    public long getCustomerCount() {
-        return customerService.getCustomerCount();
+    public long getActiveCustomerCount() {
+        return customerService.getActiveCustomerCount();
     }
+
 
     @DeleteMapping("/{id}")
-    public Customer removeById(@PathVariable Long id) {
-        return customerService.removeByID(id);
+    public CustomerDTO deleteById(@PathVariable Long id) {
+        return customerService.deleteById(id);
     }
 
-    @DeleteMapping("/{by-title}")
-    public Customer removeByName(String title) {
-        return customerService.removeByName(title);
+    @DeleteMapping("/byname/{name}")
+    public void deleteByName(@RequestParam String name) {
+        customerService.deleteByName(name);
     }
 
+//    @GetMapping
+//    public BigDecimal getTotalCostOfCustomersProducts(long customerId) {
+//        return null;
+//    }
+//
+//    @GetMapping
+//    public BigDecimal getAverageCostOfCustomersProducts(long customerId) {
+//        return null;
+//    }
+//
+//    @PostMapping
+//    public void addProductToCustomersCart(long customerId, long productId) {
+//
+//    }
+//
+//    @DeleteMapping
+//    public void removeProductToCustomersCart(long customerId, long productId) {
+//
+//    }
+//
+//    @DeleteMapping
+//    public void clearCustomersCart(long customerId) {
+//
+//    }
 }
