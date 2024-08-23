@@ -1,6 +1,6 @@
 package ait.shop.security;
 
-import ait.shop.repository.repository.UserRepository;
+import ait.shop.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

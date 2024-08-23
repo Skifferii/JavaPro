@@ -2,8 +2,8 @@ package ait.shop.security.service;
 
 import ait.shop.model.entity.Role;
 import ait.shop.model.entity.User;
-import ait.shop.repository.repository.RoleRepository;
-import ait.shop.security.security_config.AuthInfo;
+import ait.shop.repository.RoleRepository;
+import ait.shop.security.AuthInfo;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -49,7 +49,7 @@ public class TokenService {
                 .compact();
     }
 
-    public String generateRefreshToken(User user) {
+    public String generateRefreshToken(UserDetails user) {
         // machen ende Zeit Token
         Instant now = Instant.now(); /// ZEIT JETZT
         Instant expiration = now.plus(10, ChronoUnit.DAYS); // Plus 1 Tag
@@ -58,7 +58,7 @@ public class TokenService {
 
 
         return Jwts.builder()
-                .subject(user.getUserName())
+                .subject(user.getUsername())
                 .expiration(expriationDate)
                 .signWith(refreshKey)
                 .compact();

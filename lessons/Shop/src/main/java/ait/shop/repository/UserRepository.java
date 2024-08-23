@@ -1,9 +1,8 @@
-package ait.shop.repository.repository;
+package ait.shop.repository;
 
 import ait.shop.model.entity.User ;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
 import java.util.Optional;
 
 

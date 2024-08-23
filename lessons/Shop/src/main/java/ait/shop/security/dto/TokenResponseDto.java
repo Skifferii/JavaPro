@@ -1,25 +1,24 @@
 package ait.shop.security.dto;
 
-
 import java.util.Objects;
 
-public class RefreshRequesrDto {
+
+public class TokenResponseDto {
     private String refreshToken;
     private String accessToken;
 
-    public RefreshRequesrDto(String refreshToken, String accessToken) {
+    public TokenResponseDto(String accessToken, String refreshToken) {
         this.refreshToken = refreshToken;
         this.accessToken = accessToken;
     }
 
-    public RefreshRequesrDto() {
+    public TokenResponseDto() {
     }
 
     @Override
     public String toString() {
-        return String.format("Token Response: access Tocken: %s, refresh Token: %s ", accessToken, refreshToken) ;
+        return String.format("Token Response: access Token: %s, refresh Token: %s", accessToken, refreshToken);
     }
-
 
     public String getAccessToken() {
         return accessToken;
@@ -42,7 +41,7 @@ public class RefreshRequesrDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        RefreshRequesrDto that = (RefreshRequesrDto) o;
+        TokenResponseDto that = (TokenResponseDto) o;
         return Objects.equals(refreshToken, that.refreshToken) && Objects.equals(accessToken, that.accessToken);
     }
 

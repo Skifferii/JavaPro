@@ -2,7 +2,7 @@ package ait.shop.service;
 
 import ait.shop.model.dto.ProductDTO;
 import ait.shop.model.entity.Product;
-import ait.shop.repository.repository.ProductRepository;
+import ait.shop.repository.ProductRepository;
 import ait.shop.service.interfaces.ProductService;
 import ait.shop.service.mapping.ProductMappingService;
 import org.springframework.stereotype.Service;

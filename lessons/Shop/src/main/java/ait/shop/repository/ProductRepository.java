@@ -1,4 +1,4 @@
-package ait.shop.repository.repository;
+package ait.shop.repository;
 
 import ait.shop.model.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
