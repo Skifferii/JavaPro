@@ -112,7 +112,10 @@ public AuthInfo mapClaimsToAuthInfo (Claims claims) {
 
     Set<Role> authorities = roles.stream()
             .map(m ->m.get("authority"))
-            .map(s -> roleRepository.findByTitle(s).orElseThrow(RuntimeException::new))
+            .map(s -> roleRepository.findByTitle(s).orElseThrow( ()->{
+                System.err.println("ROLE NOT FOUND " +s);
+                return new RuntimeException("ROLE NOT FOUND");
+            }))
             .collect(Collectors.toSet());
     return new AuthInfo(username, authorities);
 

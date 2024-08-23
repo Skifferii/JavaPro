@@ -2,7 +2,9 @@ package ait.shop.security.service;
 
 import ait.shop.model.entity.User;
 import ait.shop.security.dto.LoginRequestDto;
+import ait.shop.security.dto.RefreshRequestDto;
 import ait.shop.security.dto.TokenResponseDto;
+import io.jsonwebtoken.Claims;
 import jakarta.security.auth.message.AuthException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -51,4 +53,26 @@ public class AuthService {
     4. Сохранить refresh-токен в хранилище
     5. Сформировать ответ
      */
+
+    public TokenResponseDto refreshAccessToken(RefreshRequestDto refreshRequestDto) throws AuthException {
+        String token = refreshRequestDto.refreshToken();
+
+        boolean isValid = tokenService.validateRefreshToken(token);
+
+        Claims refreshClaims = tokenService.getRefreshClaims(token);
+        String username = refreshClaims.getSubject();
+
+        String savedToken = refreshStorage.get(username);
+
+        boolean isSaved = token.equals(savedToken);
+        if (isValid && isSaved) {
+            UserDetails founderUser = userService.loadUserByUsername(username);
+            String accessToken = tokenService.generateAccessToken(founderUser);
+
+            return new TokenResponseDto(accessToken, token);
+        }
+        throw new AuthException("Invalid refresh token. RE login please!");
+
+
+   }
 }
