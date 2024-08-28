@@ -1,5 +1,7 @@
 package ait.shop.service;
 
+import ait.shop.exception_handling.exceptions.FirstTestException;
+import ait.shop.exception_handling.exceptions.ThirdTestException;
 import ait.shop.model.dto.ProductDTO;
 import ait.shop.model.entity.Product;
 import ait.shop.repository.ProductRepository;
@@ -25,26 +27,32 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDTO saveProduct(ProductDTO productDTO) {
-        Product product =mapper.mapDtoToEntity(productDTO);
-       // product.setActive(true);
+        Product product = mapper.mapDtoToEntity(productDTO);
+        // product.setActive(true);
         return mapper.mapEntityToDto(repository.save(product));
     }
 
     @Override
     public ProductDTO getById(long id) {
         Product product = repository.findById(id).orElse(null);
-        if (product == null || !product.isActive()) {
-            return null;
+
+        if (product == null) {
+            throw new ThirdTestException("Product with id " + id + " not found");
         }
+        if (!product.isActive()) {
+            throw new FirstTestException("THIS FIRST TEST MASSAGE");
+        }
+
         return mapper.mapEntityToDto(product);
 
     }
+
     @Override
     public List<ProductDTO> getAll() {
-         return repository.findAll().stream()
-                 .filter(Product ::isActive)
-                 .map(mapper::mapEntityToDto)
-                 .toList();
+        return repository.findAll().stream()
+                .filter(Product::isActive)
+                .map(mapper::mapEntityToDto)
+                .toList();
     }
 
     @Override
@@ -61,7 +69,6 @@ public class ProductServiceImpl implements ProductService {
     public ProductDTO remove(Long id) {
         return null;
     }
-
 
 
     @Override

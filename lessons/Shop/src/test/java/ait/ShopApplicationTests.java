@@ -1,4 +1,4 @@
-package ait.group44.shop;
+package ait;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

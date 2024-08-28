@@ -1,5 +1,7 @@
 package ait.shop.service;
 
+import ait.shop.exception_handling.exceptions.FirstTestException;
+import ait.shop.exception_handling.exceptions.ThirdTestException;
 import ait.shop.model.dto.CustomerDTO;
 import ait.shop.model.entity.Customer;
 import ait.shop.repository.CustomerRepository;
@@ -29,8 +31,10 @@ public class CustomerServiceImpl implements CustomerService {
 
     public CustomerDTO getById(long id) {
        Customer customer = repository.findById(id).orElse(null);
-        if (customer == null || !customer.isActive()) {
-            return null;
+        if (customer == null) {
+            throw new ThirdTestException("Customer with id " + id + " not found");
+        } if (!customer.isActive()) {
+            throw new FirstTestException("THIS FIRST TEST MASSAGE");
         }
         return mapper.mapEntityToDto(customer);
     }

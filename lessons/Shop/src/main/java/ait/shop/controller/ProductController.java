@@ -1,5 +1,7 @@
 package ait.shop.controller;
 
+import ait.shop.exception_handling.Response;
+import ait.shop.exception_handling.exceptions.FirstTestException;
 import ait.shop.model.dto.ProductDTO;
 import ait.shop.service.interfaces.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -9,6 +11,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -40,7 +45,7 @@ public class ProductController {
 
 
     @PostMapping
-    public ProductDTO saveProduct(@RequestBody ProductDTO productDTO) { //TODO ask to service
+    public ProductDTO saveProduct(@Valid @RequestBody ProductDTO productDTO) { //TODO ask to service
 
         return productService.saveProduct(productDTO);
     }
@@ -66,8 +71,15 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ProductDTO getById(
-            @Parameter(description = "The id that method to be fetched. ", required = true)
-            @PathVariable long id) {    //TODO ask to service from id
+            @Parameter(description = "The id that method to be fetched. ", required = true) @PathVariable long id) {    //TODO ask to service from id
+//
+//  TAK DELATb HELb3a   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//
+// check; if id=10 trowble exept
+//        if (id == 10) {
+//            throw new FirstTestException("ID cannot be 10");
+//        }
+        //  TAK DELATb HELb3a   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         return productService.getById(id);
     }
 
@@ -110,5 +122,12 @@ public class ProductController {
     public BigDecimal getAveragePrice() {
         return productService.getAveragePrice();
     }
+
+    @ExceptionHandler(FirstTestException.class)
+    public ResponseEntity<Response> handleException (FirstTestException e) {
+        Response response = new Response(e.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
 
 }
