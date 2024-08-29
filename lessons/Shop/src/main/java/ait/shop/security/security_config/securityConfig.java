@@ -5,7 +5,6 @@ import ait.shop.security.filter.TokenFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -26,7 +25,7 @@ public class securityConfig {
         this.tokenFilter = tokenFilter;
     }
 
-    private  final TokenFilter  tokenFilter;
+    private final TokenFilter tokenFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -37,14 +36,14 @@ public class securityConfig {
                 .httpBasic(AbstractHttpConfigurer::disable) // отключаем базовую аутентификацию
                 .addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth
-                               .anyRequest().permitAll() //TODO ON OFF
-//                                .requestMatchers(HttpMethod.POST, "/auth/login", "/auth/refresh").permitAll()
-//                                .requestMatchers("/swagger-ui/**", "/v3/api-docs").permitAll()
-//                                .requestMatchers(HttpMethod.GET, "/products").permitAll() // разрешено всем
-//                                .requestMatchers(HttpMethod.GET, "/products/{id}").authenticated() //  только для аутентифицированных пользователей
-////                        .requestMatchers(HttpMethod.GET, "/products/{id}").hasAnyRole("ADMIN", "USER") //  только для пользователей с ролью USER или ADMIN
-//                                .requestMatchers(HttpMethod.POST, "/products").hasRole("ADMIN")
-//                                .anyRequest().authenticated()
+                                .requestMatchers(HttpMethod.GET, "/hello").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/auth/login", "/auth/refresh").permitAll()
+                                .requestMatchers("/swagger-ui/**", "/v3/api-docs").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/products").permitAll() // разрешено всем
+                                .requestMatchers(HttpMethod.GET, "/products/{id}").authenticated() //  только для аутентифицированных пользователей
+//                        .requestMatchers(HttpMethod.GET, "/products/{id}").hasAnyRole("ADMIN", "USER") //  только для пользователей с ролью USER или ADMIN
+                                .requestMatchers(HttpMethod.POST, "/products").hasRole("ADMIN")
+                                .anyRequest().authenticated()
                 );
 
         return http.build();
