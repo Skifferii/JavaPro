@@ -27,6 +27,12 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "active")
+    private boolean active;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role",
@@ -37,8 +43,8 @@ public class User implements UserDetails {
 
     @Override
     public String toString() {
-        return String.format("User : id - %d, userName - %s, roles - %s",
-                id, userName, roles == null ? "[]" : roles);
+        return String.format("User : id - %d, userName - %s, roles - %s, active - %s",
+                id, userName, roles == null ? "[]" : roles, active ? "yes" : "no");
     }
 
     @Override
@@ -47,7 +53,7 @@ public class User implements UserDetails {
         if (o == null || getClass() != o.getClass()) return false;
 
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(userName, user.userName) && Objects.equals(password, user.password) && Objects.equals(roles, user.roles);
+        return active == user.active && Objects.equals(id, user.id) && Objects.equals(userName, user.userName) && Objects.equals(password, user.password) && Objects.equals(email, user.email) && Objects.equals(roles, user.roles);
     }
 
     @Override
@@ -55,8 +61,26 @@ public class User implements UserDetails {
         int result = Objects.hashCode(id);
         result = 31 * result + Objects.hashCode(userName);
         result = 31 * result + Objects.hashCode(password);
+        result = 31 * result + Objects.hashCode(email);
+        result = 31 * result + Boolean.hashCode(active);
         result = 31 * result + Objects.hashCode(roles);
         return result;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public Long getId() {
@@ -105,6 +129,4 @@ public class User implements UserDetails {
 //    public static void main(String[] args) {
 //        System.out.println(new BCryptPasswordEncoder().encode("111"));
 //    }
-
-
 }

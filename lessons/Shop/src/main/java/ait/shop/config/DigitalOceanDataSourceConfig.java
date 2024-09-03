@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Profile;
 
 import javax.sql.DataSource;
 
+
 @Profile("fake")
 @Configuration
 public class DigitalOceanDataSourceConfig {
@@ -16,7 +17,7 @@ public class DigitalOceanDataSourceConfig {
     private String username;
 
     @Value("${DB_PASSWORD}")
-        private String password;
+    private String password;
 
     @Value("${DB_HOST}")
     private String host;
@@ -32,6 +33,7 @@ public class DigitalOceanDataSourceConfig {
         return DataSourceBuilder.create()
                 .driverClassName("org.postgresql.Driver")
                 .url("jdbc:postgresql://" + host + ":" + port + "/" + dbName)
+//                .url(String.format("jdbc:postgresql://%s:%s/%s", host, port, dbName )
                 .username(username)
                 .password(password)
                 .build();

@@ -6,9 +6,13 @@ import java.util.Objects;
 public class ValidationResponse {
     private List<String> messages;
 
+    public ValidationResponse(List<String> messages) {
+        this.messages = messages;
+    }
+
     @Override
     public String toString() {
-        return "Response: messages=" + messages;
+        return "Response: messages - " + messages;
     }
 
     public List<String> getMessages() {
@@ -27,9 +31,5 @@ public class ValidationResponse {
     @Override
     public int hashCode() {
         return Objects.hashCode(messages);
-    }
-
-    public ValidationResponse(List<String> messages) {
-        this.messages = messages;
     }
 }

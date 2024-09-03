@@ -7,17 +7,15 @@ import org.springframework.security.core.GrantedAuthority;
 import java.util.Collection;
 import java.util.Set;
 
-public class AuthInfo  implements Authentication {
-
+public class AuthInfo implements Authentication {
 
     private boolean authenticated;
     private String username;
     private Set<Role> roles;
 
-
-    public AuthInfo(String username, Set<Role> authorities) {
+    public AuthInfo(String username, Set<Role> roles) {
         this.username = username;
-        this.roles = authorities;
+        this.roles = roles;
     }
 
     @Override
@@ -48,7 +46,6 @@ public class AuthInfo  implements Authentication {
     @Override
     public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
         this.authenticated = isAuthenticated;
-
     }
 
     @Override

@@ -13,37 +13,59 @@ import java.util.List;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+
     @ExceptionHandler(ThirdTestException.class)
     public ResponseEntity<Response> handleThirdTestException(ThirdTestException e) {
         Response response = new Response(e.getMessage());
-        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
 
-    //BindingResult - Pola mit OSCHIBKAMI
-    // FieldError - class, predstavlayet oschibku
-
-//    @ExceptionHandler(MethodArgumentNotValidException.class)
-//    public ResponseEntity<Response> handleValidationException(MethodArgumentNotValidException ex) {
-//
-//        StringBuilder errorMessage = new StringBuilder();                                          //create objekt stringBuilder dla messagev
-//
-//        for (FieldError error : ex.getBindingResult().getFieldErrors()) {                          // all errors
-//            errorMessage.append(error.getDefaultMessage()).append(";  ");                          // add message mit error for now pole
-//        }
-//        Response response = new Response(errorMessage.toString());                                  //create mit massage
-//        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-//    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ValidationResponse> handleValidationException(MethodArgumentNotValidException ex) {
-        List<String> errors = new ArrayList<>();                                                    // Cоздаем список ошибок для накопления сообщений об ошибках
-        for (FieldError error : ex.getBindingResult().getFieldErrors()) {                               //перебираем все ошибки
-            errors.add(error.getField() + " | " + error.getDefaultMessage());                       // Добавляем сообщение об ошибке для текущего поля
+        // Cоздаем список ошибок для накопления сообщений об ошибках
+        List<String> errors = new ArrayList<>();
+
+        //перебираем все ошибки
+        for (FieldError error: ex.getBindingResult().getFieldErrors()) {
+            // Добавляем сообщение об ошибке для текущего поля
+            errors.add(error.getField() + " ->  " +  error.getDefaultMessage());
         }
-        ValidationResponse response = new ValidationResponse(errors);                               //Создаем объект Response с накопленным сообщение
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);                              // Возвращаем ResponseEntity с объектом Response и статусом 400
+
+        //Создаем объект Response с накопленным сообщение
+        ValidationResponse response = new ValidationResponse(errors);
+
+        // Возвращаем ResponseEntity с объектом Response и статусом 400
+        return  new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
+
+
+
+
+//    @ExceptionHandler(MethodArgumentNotValidException.class)
+//    public ResponseEntity<Response> handleValidationException(MethodArgumentNotValidException ex) {
+//        // Cоздаем объект StringBuilder для накопления сообщений об ошибках
+//        StringBuilder errorMessages = new StringBuilder();
+//
+//        //перебираем все ошибки
+//        for (FieldError error: ex.getBindingResult().getFieldErrors()) {
+//            // Добавляем сообщение об ошибке для текущего поля
+//            errorMessages.append(error.getDefaultMessage()).append("; ");
+//        }
+//
+//        //Создаем объект Response с накопленным сообщение
+//        Response response = new Response(errorMessages.toString());
+//
+//        // Возвращаем ResponseEntity с объектом Response и статусом 400
+//        return  new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+//    }
+
+
+
+
+
+
 
 
 }

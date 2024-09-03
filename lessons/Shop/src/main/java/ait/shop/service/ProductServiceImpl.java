@@ -7,53 +7,93 @@ import ait.shop.model.entity.Product;
 import ait.shop.repository.ProductRepository;
 import ait.shop.service.interfaces.ProductService;
 import ait.shop.service.mapping.ProductMappingService;
+import com.amazonaws.services.s3.transfer.Copy;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 
 @Service
-
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository repository;
     private final ProductMappingService mapper;
+    private final ProductRepository productRepository;
 
-    public ProductServiceImpl(ProductRepository repository, ProductMappingService mapper) {
+//    private Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
+
+    public ProductServiceImpl(ProductRepository repository, ProductMappingService mapper, ProductRepository productRepository) {
         this.repository = repository;
         this.mapper = mapper;
+        this.productRepository = productRepository;
+    }
+
+
+    @Transactional
+    @Override
+    public void attachImage(String imageUrl, String productTitle) {
+        // Ищем продукт в базе по названию
+        Product product = productRepository.findByTitle(productTitle)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        // Присваиваем продукту ссылку на изображение
+        product.setImage(imageUrl);
     }
 
     @Override
     public ProductDTO saveProduct(ProductDTO productDTO) {
+        System.out.println("Method save work");
         Product product = mapper.mapDtoToEntity(productDTO);
-        // product.setActive(true);
+//        product.setActive(true);
         return mapper.mapEntityToDto(repository.save(product));
     }
 
+//    @Override
+//    public ProductDTO getById(long id) {
+//        logger.info("Method getById called with parameter: {}", id);
+//        logger.warn("Method getById called with parameter: {}", id);
+//        logger.error("Method getById called with parameter: {}", id);
+//
+//        Product product =  repository.findById(id).orElse(null);
+//
+//        if (product == null || !product.isActive() ) {
+//            return null;
+//        }
+//
+//        return mapper.mapEntityToDto(product);
+//    }
+
     @Override
     public ProductDTO getById(long id) {
-        Product product = repository.findById(id).orElse(null);
+
+        Product product =  repository.findById(id).orElse(null);
 
         if (product == null) {
             throw new ThirdTestException("Product with id " + id + " not found");
         }
-        if (!product.isActive()) {
-            throw new FirstTestException("THIS FIRST TEST MASSAGE");
+        if (!product.isActive() ) {
+            throw new FirstTestException("This is first Test Exception message");
         }
 
-        return mapper.mapEntityToDto(product);
 
+        return mapper.mapEntityToDto(product);
     }
 
     @Override
     public List<ProductDTO> getAll() {
+        // создаю поток из элементов списка
         return repository.findAll().stream()
+                // фильтрую поток (оставляю только активные элементы
                 .filter(Product::isActive)
+                // маппинг: поток Product -> поток ProductDto.
+                // Каждый элемент потока будет преобразован из Product в ProductDto
                 .map(mapper::mapEntityToDto)
+                // собираю элементы потока в список (List)
                 .toList();
     }
+
 
     @Override
     public ProductDTO updateProduct(Long id, ProductDTO productDTO) {
@@ -61,14 +101,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public long getProductsCount() {
-        return repository.count();
-    }
-
-    @Override
     public ProductDTO remove(Long id) {
         return null;
     }
+
 
 
     @Override
@@ -79,6 +115,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDTO restoreByTitle(Long id) {
         return null;
+    }
+
+    @Override
+    public long getProductsCount() {
+        return 0;
     }
 
     @Override
